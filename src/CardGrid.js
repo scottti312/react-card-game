@@ -4,8 +4,6 @@ import styled from 'styled-components';
 
 const CardGrid = (props) => {
   const { cardArray } = props;
-  console.log('current:');
-  console.log(cardArray);
   return (
     <CardGridContainer>
       {cardArray.map(card => (
