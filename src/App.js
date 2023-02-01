@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import CardGrid from './CardGrid';
+import { shuffleArray } from './utils';
+import styled from 'styled-components';
 
 function App() {
+  const [cards, setCards] = useState([...Array(8).keys()])
+
+  const onButtonClick = (arr) => {
+    setCards(shuffleArray(arr));
+    console.log('cards = ' + cards);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <CardGrid cardArray={cards}/>
+      <ShuffleButton onClick={() => onButtonClick(cards)}>Shuffle</ShuffleButton>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  margin-top: 50px;
+`;
+
+const ShuffleButton = styled.button`
+  width: 5em;
+  height: 2em;
+`
 
 export default App;
