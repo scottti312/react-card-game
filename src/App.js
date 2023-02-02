@@ -49,7 +49,7 @@ function App() {
       }
       setScore(newScore);
       setMemory([...memory, chosenNumber]);
-      if (newScore == cards.length) {
+      if (newScore === cards.length) {
         winScreen();
       }
     }
@@ -107,11 +107,5 @@ const Container = styled.div`
   gap: 10px;
   margin-top: 50px;
 `;
-
-const RestartButton = styled.button`
-  width: 5em;
-  height: 2em;
-  margin-bottom: 10px;
-`
 
 export default App;
