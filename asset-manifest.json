@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/react-card-game/static/js/main.c9796600.js",
+    "main.js": "/react-card-game/static/js/main.0bf53e0e.js",
     "index.html": "/react-card-game/index.html",
-    "main.c9796600.js.map": "/react-card-game/static/js/main.c9796600.js.map"
+    "main.0bf53e0e.js.map": "/react-card-game/static/js/main.0bf53e0e.js.map"
   },
   "entrypoints": [
-    "static/js/main.c9796600.js"
+    "static/js/main.0bf53e0e.js"
   ]
 }
