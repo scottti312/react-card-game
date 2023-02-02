@@ -2,12 +2,11 @@ import React from 'react';
 import Card from './Card';
 import styled from 'styled-components';
 
-const CardGrid = (props) => {
-  const { cardArray } = props;
+const CardGrid = ({ cardArray, handleCardClick }) => {
   return (
     <CardGridContainer>
       {cardArray.map(card => (
-        <Card key={card} number={card}>{card}</Card>
+        <Card key={card} number={card} handleCardClick={handleCardClick}>{card}</Card>
       ))}
     </CardGridContainer>
   );

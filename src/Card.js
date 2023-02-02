@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const Card = (props) => {
-  const { number } = props;
+  const { number, handleCardClick } = props;
 
   return (
     <>
-      <CardContainer>{number}</CardContainer>
+      <CardContainer onClick={handleCardClick}>{number}</CardContainer>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CardGrid from './CardGrid';
 import { shuffleArray } from './utils';
 import styled from 'styled-components';
@@ -6,14 +6,18 @@ import styled from 'styled-components';
 function App() {
   const [cards, setCards] = useState([...Array(8).keys()])
 
-  const onButtonClick = () => {
+  const handleCardClick = () => {
     setCards(shuffleArray(cards));
   };
 
+  useEffect(() => {
+    setCards(shuffleArray(cards));
+  }, []);
+
   return (
     <Container>
-      <CardGrid cardArray={cards}/>
-      <ShuffleButton onClick={onButtonClick}>Shuffle</ShuffleButton>
+      <CardGrid cardArray={cards} handleCardClick={handleCardClick}/>
+      {/* <ShuffleButton onClick={onButtonClick}>Shuffle</ShuffleButton> */}
     </Container>
   );
 }
