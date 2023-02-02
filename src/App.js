@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import CardGrid from './CardGrid';
-import Rules from './Rules';
+import CardGrid from './components/CardGrid';
+import Rules from './components/Rules';
 import { shuffleArray } from './utils';
 import styled from 'styled-components';
+import EndGameDisplay from './components/EndGameDisplay';
 
 const NUM_CARDS = 12;
 
@@ -55,7 +56,6 @@ function App() {
       }
     }
     setCards(shuffleArray(cards));
-    console.log(memory);
   };
 
   const loseScreen = () => {
@@ -83,27 +83,13 @@ function App() {
         cardArray={cards}
         handleCardClick={lost ? undefined : handleCardClick}
       />
-      {lost && (
-        <>
-          <div>You lose.</div>
-          {highScoreMet && (<div>New high score!</div>)}
-          <RestartButton onClick={restart}>Restart</RestartButton>
-        </>
-      )}
-      {won && !hardMode && (
-        <>
-          <div>You won!</div>
-          {highScoreMet && (<div>New high score!</div>)}
-          <RestartButton onClick={restart}>Restart</RestartButton>
-        </>
-      )}
-      {won && hardMode && (
-        <>
-          <div>You won hard mode!!</div>
-          {highScoreMet && (<div>New high score!</div>)}
-          <RestartButton onClick={restart}>Restart</RestartButton>
-        </>
-      )}
+      <EndGameDisplay
+        won={won}
+        lost={lost}
+        hardMode={hardMode}
+        highScoreMet={highScoreMet}
+        restart={restart}
+      />
       {!lost && !won && (<Rules hard={hardMode}/>)}
       {!hardMode && (
       <button onClick={handleHardMode}>Hard Mode</button>
