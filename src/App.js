@@ -24,14 +24,12 @@ function App() {
 
   const handleHardMode = () => {
     setHardMode(true);
-    console.log('what');
     restart();
     setCards(shuffleArray(['😄', '😆', '😂', '🧐', '😡', '🥰', '🤭', '😵', '😷', '🤥', '😬', '😖']));
   }
   
   const handleEasyMode = () => {
     setHardMode(false);
-    console.log('whatttt');
     restart();
     setCards(shuffleArray([...Array(NUM_CARDS).keys()].map(i => i + 1)));
   }
