@@ -6,7 +6,9 @@ import styled from 'styled-components';
 function App() {
   const [cards, setCards] = useState([...Array(8).keys()])
 
-  const handleCardClick = () => {
+  const handleCardClick = (e) => {
+    const chosenNumber = e.target.textContent;
+    console.log(chosenNumber);
     setCards(shuffleArray(cards));
   };
 
