@@ -15,7 +15,7 @@ const CardGrid = ({ cardArray, handleCardClick }) => {
 const CardGridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  margin: 40px 0px 40px 0px;
   gap: 1em;
 `
 
