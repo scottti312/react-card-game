@@ -1,20 +1,39 @@
-import React, { useState, useEffect, useSyncExternalStore } from 'react';
+import React, { useState, useEffect } from 'react';
 import CardGrid from './CardGrid';
 import Rules from './Rules';
 import { shuffleArray } from './utils';
 import styled from 'styled-components';
 
+const NUM_CARDS = 12;
+
 function App() {
-  const [cards, setCards] = useState([...Array(12).keys()].map(i => i + 1));
+  const [cards, setCards] = useState([...Array(NUM_CARDS).keys()].map(i => i + 1));
   const [memory, setMemory] = useState([]);
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
+  const [hardHighScore, setHardHighScore] = useState(0);
   const [highScoreMet, setHighScoreMet] = useState(false);
   const [lost, setLost] = useState(false);
+  const [won, setWon] = useState(false);
+  const [hardMode, setHardMode] = useState(false)
 
   useEffect(() => {
     setCards(shuffleArray(cards));
   }, []);
+
+  const handleHardMode = () => {
+    setHardMode(true);
+    console.log('what');
+    restart();
+    setCards(shuffleArray(['😄', '😆', '😂', '🧐', '😡', '🥰', '🤭', '😵', '😷', '🤥', '😬', '😖']));
+  }
+  
+  const handleEasyMode = () => {
+    setHardMode(false);
+    console.log('whatttt');
+    restart();
+    setCards(shuffleArray([...Array(NUM_CARDS).keys()].map(i => i + 1)));
+  }
 
   const handleCardClick = (e) => {
     const chosenNumber = e.target.textContent;
@@ -22,12 +41,18 @@ function App() {
       loseScreen();
     } else {
       let newScore = score + 1;
-      if (newScore > highScore) {
+      if (!hardMode && newScore > highScore) {
         setHighScore(newScore);
+        setHighScoreMet(true);
+      } else if (hardMode && newScore > hardHighScore) {
+        setHardHighScore(newScore);
         setHighScoreMet(true);
       }
       setScore(newScore);
       setMemory([...memory, chosenNumber]);
+      if (newScore == cards.length) {
+        winScreen();
+      }
     }
     setCards(shuffleArray(cards));
     console.log(memory);
@@ -36,20 +61,24 @@ function App() {
   const loseScreen = () => {
     setLost(true);
   }
+
+  const winScreen = () => {
+    setWon(true);
+  }
   
   const restart = () => {
     setCards(shuffleArray(cards))
     setScore(0);
     setMemory([]);
     setLost(false);
+    setWon(false);
     setHighScoreMet(false);
   }
 
   return (
     <Container>
-      <div>High Score: {highScore}</div>
+      <div>High Score: {hardMode ? hardHighScore : highScore}</div>
       <div>Score: {score}</div>
-
       <CardGrid 
         cardArray={cards}
         handleCardClick={lost ? undefined : handleCardClick}
@@ -61,7 +90,27 @@ function App() {
           <RestartButton onClick={restart}>Restart</RestartButton>
         </>
       )}
-      {!lost && (<Rules/>)}
+      {won && !hardMode && (
+        <>
+          <div>You won!</div>
+          {highScoreMet && (<div>New high score!</div>)}
+          <RestartButton onClick={restart}>Restart</RestartButton>
+        </>
+      )}
+      {won && hardMode && (
+        <>
+          <div>You won hard mode!!</div>
+          {highScoreMet && (<div>New high score!</div>)}
+          <RestartButton onClick={restart}>Restart</RestartButton>
+        </>
+      )}
+      {!lost && !won && (<Rules hard={hardMode}/>)}
+      {!hardMode && (
+      <button onClick={handleHardMode}>Hard Mode</button>
+      )}
+      {hardMode && (
+      <button onClick={handleEasyMode}>Easy Mode</button>
+      )}
     </Container>
   );
 }
@@ -78,7 +127,7 @@ const Container = styled.div`
 const RestartButton = styled.button`
   width: 5em;
   height: 2em;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
 `
 
 export default App;
