@@ -15,9 +15,19 @@ const CardContainer = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
-height: 5em;
+font-size: 2.5em;
+height: 4em;
 width: 3em;
-background-color: gray;
+border-radius: 5px;
+border: 1px solid black;
+box-shadow: 1px 0px 8px 2px rgba(0,0,0,0.45);
+background-color: #fffaaa;
+color: #000;
+transition: all 0.2s ease-out;
+
+&:hover {
+  background-color: lightblue;
+}
 `;
 
 export default Card;

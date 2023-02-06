@@ -4,10 +4,11 @@ import Rules from './components/Rules';
 import { shuffleArray } from './utils';
 import styled from 'styled-components';
 import EndGameDisplay from './components/EndGameDisplay';
+import './styles.css';
 
 const NUM_CARDS = 12;
 
-function App() {
+function App({ theme }) {
   const [cards, setCards] = useState([...Array(NUM_CARDS).keys()].map(i => i + 1));
   const [memory, setMemory] = useState([]);
   const [score, setScore] = useState(0);
@@ -74,7 +75,7 @@ function App() {
   }
 
   return (
-    <Container>
+    <Container className={theme}>
       <div>High Score: {hardMode ? hardHighScore : highScore}</div>
       <div>Score: {score}</div>
       <CardGrid 
